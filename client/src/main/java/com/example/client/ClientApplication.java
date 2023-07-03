@@ -39,22 +39,22 @@ public class ClientApplication {
     @Bean
     RouteLocator gateway(RouteLocatorBuilder b) {
         return b
-                .routes()
-                .route(rs -> rs
-                                .path("/proxy")
-                                .filters(f -> f
-                                                .setPath("/customers")
-                                                .retry(10)
-                                                .addResponseHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*")
+            .routes()
+            .route(rs -> rs
+                    .path("/proxy")
+                    .filters(f -> f
+                            .setPath("/customers")
+                            .retry(10)
+                            .addResponseHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*")
 //                                        .requestRateLimiter(null)
 //                                        .circuitBreaker( null)
 //                                        .jsonToGRPC( null)
 //                                        .tokenRelay()
 //
-                                )
-                                .uri(serviceUrl)
-                )
-                .build();
+                    )
+                    .uri(serviceUrl)
+            )
+            .build();
     }
 
     @Bean
@@ -66,9 +66,9 @@ public class ClientApplication {
     CustomerHttpClient customerHttpClient(WebClient.Builder builder) {
         var wc = builder.baseUrl(serviceUrl).build();
         return HttpServiceProxyFactory
-                .builder(WebClientAdapter.forClient(wc))
-                .build()
-                .createClient(CustomerHttpClient.class);
+            .builder(WebClientAdapter.forClient(wc))
+            .build()
+            .createClient(CustomerHttpClient.class);
     }
 
 }
@@ -100,7 +100,7 @@ class CustomerGraphqlController {
         for (var c : customer)
             map.put( c, new Profile(c.id()));
         System.out.println("getting ALL profiles for [" + customer +
-                           "]");
+            "]");
         return map;
     }
 }

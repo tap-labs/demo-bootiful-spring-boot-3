@@ -20,7 +20,7 @@ k8s_custom_deploy(
     ]
 )
 
-k8s_resource('bootiful-client', port_forwards=["8090:9090"],
+k8s_resource('bootiful-client', port_forwards=["8090:9999"],
             extra_pod_selectors=[{'carto.run/workload-name': 'bootiful-client', 'app.kubernetes.io/component': 'run'}])
 
 allow_k8s_contexts('tap-labs')
